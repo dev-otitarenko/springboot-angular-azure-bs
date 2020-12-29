@@ -1,5 +1,6 @@
-package com.maestro.examples.app.azure.filestorage.records;
+package com.maestro.examples.app.azure.filestorage.domains;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
  * Dto class with information about file to complete upload to the storage
  */
 @Data
+@Builder
 public class FilePrm {
     /**
      * The file name
