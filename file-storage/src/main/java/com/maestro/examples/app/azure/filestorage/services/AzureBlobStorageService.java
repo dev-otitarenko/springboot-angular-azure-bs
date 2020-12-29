@@ -1,8 +1,11 @@
 package com.maestro.examples.app.azure.filestorage.services;
 
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.azure.storage.blob.models.BlobContainerItem;
 import com.azure.storage.blob.models.BlobHttpHeaders;
+import com.azure.storage.blob.models.BlobItem;
 import com.azure.storage.blob.models.BlobStorageException;
 import com.azure.storage.blob.sas.BlobContainerSasPermission;
 import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
@@ -54,6 +57,34 @@ public class AzureBlobStorageService {
                 .connectionString(connectString)
                 .buildClient()
                 .getBlobContainerClient(containerName);
+    }
+
+    /**
+     * Obtains a list of containers
+     *
+     * @return List of containers.
+     */
+    public PagedIterable<BlobContainerItem> listContainers() {
+        final String connectString = String.format("DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;EndpointSuffix=core.windows.net", this.accountName, this.accountKey);
+        return new BlobServiceClientBuilder()
+                .connectionString(connectString)
+                .buildClient()
+                .listBlobContainers();
+    }
+
+    /**
+     * Obtains a list of blobs in the container
+     *
+     * @param containerName The name of the container to point to.
+     * @return List of containers.
+     */
+    public PagedIterable<BlobItem> listBlobs(final String containerName) {
+        final String connectString = String.format("DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;EndpointSuffix=core.windows.net", this.accountName, this.accountKey);
+        return new BlobServiceClientBuilder()
+                .connectionString(connectString)
+                .buildClient()
+                .getBlobContainerClient(containerName)
+                .listBlobs();
     }
 
     /**

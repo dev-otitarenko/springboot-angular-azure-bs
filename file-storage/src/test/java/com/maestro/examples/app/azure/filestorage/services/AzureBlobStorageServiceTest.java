@@ -1,5 +1,8 @@
 package com.maestro.examples.app.azure.filestorage.services;
 
+import com.azure.core.http.rest.PagedIterable;
+import com.azure.storage.blob.models.BlobContainerItem;
+import com.azure.storage.blob.models.BlobItem;
 import com.maestro.examples.app.azure.filestorage.utils.CurlUtils;
 import com.maestro.examples.app.azure.filestorage.domains.DataBlock;
 import com.maestro.examples.app.azure.filestorage.domains.FilePrm;
@@ -17,7 +20,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -45,14 +48,14 @@ class AzureBlobStorageServiceTest {
 
     @Order(1)
     @Test
-    @DisplayName("Stage 1. Uploading is starting")
+    @DisplayName("Uploading is starting")
     void beforeUploadFile() {
         filesService.beforeUpload(this.idContainer);
     }
 
     @Order(2)
     @Test
-    @DisplayName("Stage 2. Uploading a file with 3 parts")
+    @DisplayName("Uploading a file with 3 parts")
     void uploadFile() {
         filesService.uploadFile(
                 idContainer,
@@ -80,7 +83,7 @@ class AzureBlobStorageServiceTest {
 
     @Order(3)
     @Test
-    @DisplayName("Stage 3. Completing uploading file. The process finishes if we send array of base64 encoded block ids")
+    @DisplayName("Completing uploading file. The process finishes if we send array of base64 encoded block ids")
     void completeUploadFile() {
         FilePrm fileInfo = FilePrm
                             .builder()
@@ -93,7 +96,7 @@ class AzureBlobStorageServiceTest {
 
     @Order(4)
     @Test
-    @DisplayName("Stage 4. Obtaining a link to this file")
+    @DisplayName("Obtaining a link to this file")
     void getLinkDocFile() throws IOException {
             // exec curl
         String command = String.format("curl -X GET %s", filesService.getLinkFile(idContainer, idFile1));
@@ -105,16 +108,37 @@ class AzureBlobStorageServiceTest {
         assertTrue(null != content && !content.isEmpty());
     }
 
-    @Order(5)
+    @Order(10)
     @Test
-    @DisplayName("Stage 5. Deleting a file from a specific container")
+    void listOfContainers() {
+        PagedIterable<BlobContainerItem> items = filesService.listContainers();
+        for (BlobContainerItem itm : items) {
+            System.out.println(itm.getName());
+            //assertEquals(itm.getName(), idContainer);
+        }
+    }
+
+    @Order(11)
+    @Test
+    void listOfBlobs() {
+        PagedIterable<BlobItem> items = filesService.listBlobs(idContainer);
+        assertEquals(items.stream().count(), 1);
+        for (BlobItem itm : items) {
+            System.out.println(itm.getName());
+            assertEquals(itm.getName(), idFile1);
+        }
+    }
+
+    @Order(99)
+    @Test
+    @DisplayName("Deleting a file from a specific container")
     void deleteDocFile() {
         filesService.deleteFile(idContainer, idFile1);
     }
 
-    @Order(6)
+    @Order(100)
     @Test
-    @DisplayName("Stage 5. Removing a specific container")
+    @DisplayName("Removing a specific container")
     void deleteContainer() {
         filesService.deleteContainer(this.idContainer);
     }
