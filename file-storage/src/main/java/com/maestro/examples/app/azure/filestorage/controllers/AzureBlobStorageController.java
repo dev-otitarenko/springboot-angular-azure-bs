@@ -1,5 +1,7 @@
 package com.maestro.examples.app.azure.filestorage.controllers;
 
+import com.azure.storage.blob.models.BlobContainerItem;
+import com.azure.storage.blob.models.BlobItem;
 import com.maestro.examples.app.azure.filestorage.domains.DataBlock;
 import com.maestro.examples.app.azure.filestorage.domains.FilePrm;
 import com.maestro.examples.app.azure.filestorage.services.AzureBlobStorageService;
@@ -7,14 +9,30 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/bs")
 @Slf4j
 public class AzureBlobStorageController {
-    private AzureBlobStorageService fileService;
+    private final AzureBlobStorageService fileService;
 
     public AzureBlobStorageController(AzureBlobStorageService fileService) {
         this.fileService = fileService;
+    }
+
+    /**
+     * Getting document file link from Azure Blob Storage
+     *
+     * @return List of blob's name
+     */
+    @GetMapping(value = "/")
+    public List<String> listContainers() {
+        return fileService.listContainers()
+                .stream()
+                .map(BlobContainerItem::getName)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -70,5 +88,19 @@ public class AzureBlobStorageController {
     @GetMapping(value = "/{idContainer}/files/{idFile}/link")
     public String getLinkDocFile(@PathVariable String idContainer, @PathVariable String idFile) {
         return fileService.getLinkFile(idContainer, idFile);
+    }
+
+    /**
+     * Getting document file link from Azure Blob Storage
+     *
+     * @param idContainer document id
+     * @return List of blob's name
+     */
+    @GetMapping(value = "/{idContainer}/files")
+    public List<String> listBlobs(@PathVariable String idContainer) {
+        return fileService.listBlobs(idContainer)
+                    .stream()
+                    .map(BlobItem::getName)
+                    .collect(Collectors.toList());
     }
 }

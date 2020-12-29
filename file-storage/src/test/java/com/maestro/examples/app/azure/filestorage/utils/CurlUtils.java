@@ -18,8 +18,4 @@ public class CurlUtils {
         }
         return builder.toString();
     }
-
-    public static void consumeInputStream(InputStream inputStream) {
-        inputStreamToString(inputStream);
-    }
 }

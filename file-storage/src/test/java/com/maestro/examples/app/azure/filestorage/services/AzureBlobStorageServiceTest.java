@@ -101,17 +101,18 @@ class AzureBlobStorageServiceTest {
             // exec curl
         String command = String.format("curl -X GET %s", filesService.getLinkFile(idContainer, idFile1));
         Process process = Runtime.getRuntime().exec(command);
-
+            // get content
         final String content = CurlUtils.inputStreamToString(process.getInputStream());
-        System.out.println(content);
-
+            // asserts
         assertTrue(null != content && !content.isEmpty());
+        assertEquals(content.trim(), "<html><head></head><body>Test</body></html>");
     }
 
     @Order(10)
     @Test
     void listOfContainers() {
         PagedIterable<BlobContainerItem> items = filesService.listContainers();
+        assertTrue(items.stream().count() >= 1);
         for (BlobContainerItem itm : items) {
             System.out.println(itm.getName());
             //assertEquals(itm.getName(), idContainer);
