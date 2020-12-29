@@ -111,3 +111,5 @@ fabric.properties
 /file-storage/.mvn/
 /file-storage/target/
 /file-storage/file-storage.iml
+
+/frontend/node_modules/
