@@ -1,0 +1,22 @@
+# server conf
+server:
+  port: 8080
+  servlet:
+    context-path: /file-storage
+
+# Spring conf
+spring:
+  application:
+    name: ile-storage
+  resources:
+    chain:
+      enabled: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
+app:
+  azure-account:
+    name: test-account
+    key: 1122334455
+  offsetHours: 24
