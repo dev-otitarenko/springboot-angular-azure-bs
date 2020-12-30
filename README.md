@@ -1,4 +1,4 @@
-# Decription
+# Description
 
 The sample shows the way to upload files to azure blob storage from the frontend.
 The backend part is written on Java (Spring Boot 2.4.1)
