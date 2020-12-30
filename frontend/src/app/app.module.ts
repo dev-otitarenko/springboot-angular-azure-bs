@@ -6,19 +6,35 @@ import { AppComponent } from './app.component';
 import { StartComponent } from './components/start/start.component';
 import {HttpClientModule} from "@angular/common/http";
 import {TableModule} from "primeng/table";
+import {ButtonModule} from "primeng/button";
+import {RippleModule} from "primeng/ripple";
+import {TooltipModule} from "primeng/tooltip";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { UploadFileComponent } from './components/upload-file/upload-file.component';
+import {DialogModule} from "primeng/dialog";
+import {ProgressBarModule} from "primeng/progressbar";
+import {FileUploadModule} from "primeng/fileupload";
+import {ToastModule} from "primeng/toast";
+import {MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
     AppComponent,
-    StartComponent
+    StartComponent,
+    UploadFileComponent
   ],
   imports: [
-    HttpClientModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
-    TableModule
+    ToastModule,
+    DialogModule, ProgressBarModule, FileUploadModule,
+    TableModule, ButtonModule, RippleModule, TooltipModule
   ],
-  providers: [],
+  providers: [
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,17 @@
+<p-dialog header="Upload" [(visible)]="visible"
+          [responsive]="true" [modal]="true"
+          [closeOnEscape]="false" [closable]="status !== 1"
+          [style]="{ width: '640px' }" [baseZIndex]="12000">
+  <p-fileUpload #fileCmp name="file[]" [customUpload]="true"
+                (uploadHandler)="fileUploader($event)"
+                [class.d-none]="status !== 0"></p-fileUpload>
+  <div *ngIf="status !== 0" class="ui-g">
+    <div class="ui-g-11 align-self-center">{{fileName}}</div>
+    <div class="ui-g-1">
+      <i *ngIf="status === 1" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      <i *ngIf="status === 2" class="pi pi-check" style="color: green; font-size: 2rem"></i>
+      <i *ngIf="status === 3" class="pi pi-times" style="color: red; font-size: 2rem"></i>
+    </div>
+  </div>
+  <p-progressBar *ngIf="status === 1 || status === 2" [value]="uploadProgress"></p-progressBar>
+</p-dialog>
