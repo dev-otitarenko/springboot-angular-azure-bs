@@ -1,7 +1,11 @@
-# springboot-angular-upload-to-azure
-The sample showing the way to upload files to azure blob storage
+# Decription
 
-# spring boot app configuration
+The sample shows the way to upload files to azure blob storage from the frontend.
+The backend part is written on Java (Spring Boot 2.4.1)
+The frontend part is written on Angular v11
+
+# App configuration
+
 This paramateres should be set
 
 ``` yml
@@ -11,7 +15,7 @@ app:
     key: <<your account pass>>
   offsetHours: 24
 ```
-# testing
+# Running
 
 1. Run "file-storage" application
 2. Run "frontend"
