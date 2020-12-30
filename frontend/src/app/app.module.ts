@@ -16,6 +16,7 @@ import {ProgressBarModule} from "primeng/progressbar";
 import {FileUploadModule} from "primeng/fileupload";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
+import {ToolbarModule} from "primeng/toolbar";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import {MessageService} from "primeng/api";
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    ToastModule,
+    ToastModule, ToolbarModule,
     DialogModule, ProgressBarModule, FileUploadModule,
     TableModule, ButtonModule, RippleModule, TooltipModule
   ],

@@ -1,25 +1,37 @@
-<p-table #dt
-         [value]="containers"
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button icon="pi pi-plus"
+              (click)="showUpload()" pTooltip="Upload new file" tooltipPosition="bottom"
+              styleClass="p-button-success"></p-button>
+
+    <i class="pi pi-bars"></i>
+
+    <p-button icon="pi pi-trash" [disabled]="selected == null"
+            (click)="remove()" pTooltip="Remove file" tooltipPosition="bottom"
+            styleClass="p-button-danger"></p-button>
+  </div>
+</p-toolbar>
+
+<p-table [value]="containers"
          selectionMode="single" [selection]="selected" (onRowSelect)="onRowSelect($event)"
          [scrollable]="true" [scrollHeight]="'calc(100vh - 150px)'">
-  <ng-template pTemplate="caption">
-    <div class="p-d-flex">
-      <button type="button" pButton icon="pi pi-plus"
-              (click)="showUpload()" class="p-mr-2" pTooltip="Upload new file" tooltipPosition="bottom"></button>
-      <button type="button" pButton icon="pi pi-trash" [disabled]="selected == null"
-              (click)="remove()" class="p-button-warning p-mr-2" pTooltip="Remove file" tooltipPosition="bottom"></button>
-    </div>
-  </ng-template>
-
   <ng-template pTemplate="header">
     <tr>
       <th>Name</th>
+      <th>Lease State</th>
+      <th>Lease Status</th>
+      <th>Last Modified</th>
+      <th>ETag</th>
     </tr>
   </ng-template>
 
   <ng-template pTemplate="body" let-container>
     <tr [pSelectableRow]="container">
-      <td>{{container}}</td>
+      <td><a href="#" (click)="open($event, container)">{{container.name}}</a></td>
+      <td>{{container.leaseState}}</td>
+      <td>{{container.leaseStatus}}</td>
+      <td>{{container.lastModified}}</td>
+      <td>{{container.etag}}</td>
     </tr>
   </ng-template>
 </p-table>

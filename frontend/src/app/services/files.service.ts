@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {MessageService} from "primeng/api";
 import {UIUtils} from "../utils/Utils";
+import {Container} from "../utils/Container";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class FilesService {
     return this.http.get<any>('/api/bs/')
       .toPromise()
       .catch((error) => { this.messageService.add(UIUtils.getMessageVar(error)); })
+      .then(res => <Container[]>res)
       .then(data => { return data; });
   }
 
@@ -49,8 +51,11 @@ export class FilesService {
         .catch((error) => { this.messageService.add(UIUtils.getMessageVar(error)); });
   }
 
-  getStorageLink(iddoc: string, id: string): Observable<string> {
-    return this.http.get(`/api/bs/${iddoc}/files/${id}/link`, {responseType: 'text'});
+  getStorageLink(iddoc: string, id: string) {
+    return this.http.get(`/api/bs/${iddoc}/files/${id}/link`, {responseType: 'text'})
+      .toPromise()
+      .catch((error) => { this.messageService.add(UIUtils.getMessageVar(error)); })
+      .then(data => { return data; });
   }
 
   beforeUpload(iddoc: string): Observable<string> {

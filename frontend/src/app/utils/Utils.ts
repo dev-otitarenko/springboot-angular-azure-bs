@@ -23,17 +23,17 @@ export class UIUtils {
         return { severity: apiError.status === "error" ? 'error' : 'warn', summary: title || 'Error', detail: _message }
       } else {
         try {
-          let _message: string = "<b>Status:</b> [" + error.status + "] " + error.statusText + " " + error.url + "<br /><b>Message:</b> " + error.message;
+          let _message: string = `[${error.status}] \"${error.url}\": ${error.statusText}`;
+          if (error.message) _message += `\nMessage: ${error.message}`;
           if (error.error) {
-            if (error.error.exception) _message += "<br /><b>Exception: </b>" + error.error.exception;
-            if (error.error.message) _message += "<br /><b>Detail message: </b>" + error.error.message;
-            let _errors = error.error.errors;
-            if (_errors) {
-              _message += "<br /><b>Detail info:</b><ul>";
+            if (error.error.exception) _message += `\nException: ${error.error.exception}`;
+            if (error.error.message) _message += `\nAdditional: ${error.error.message}`;
+            if (error.error.errors) {
+              const _errors = error.error.errors;
+              _message += "\nDetail: ";
               for (let _k in _errors) {
-                _message += "<li>" + _errors[_k] + "</li>";
+                _message += ", " + _errors[_k];
               }
-              _message += "</ul>";
             }
           }
           return { severity: 'error', summary: title || 'Error', detail: _message }
