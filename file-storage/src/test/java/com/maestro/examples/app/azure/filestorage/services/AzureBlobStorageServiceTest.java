@@ -2,6 +2,7 @@ package com.maestro.examples.app.azure.filestorage.services;
 
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.storage.blob.models.BlobContainerItem;
+import com.azure.storage.blob.models.BlobContainerItemProperties;
 import com.azure.storage.blob.models.BlobItem;
 import com.maestro.examples.app.azure.filestorage.utils.CurlUtils;
 import com.maestro.examples.app.azure.filestorage.domains.DataBlock;
@@ -114,8 +115,22 @@ class AzureBlobStorageServiceTest {
         PagedIterable<BlobContainerItem> items = filesService.listContainers();
         assertTrue(items.stream().count() >= 1);
         for (BlobContainerItem itm : items) {
-            System.out.println(itm.getName());
-            //assertEquals(itm.getName(), idContainer);
+            StringBuilder sb = new StringBuilder()/*,
+                          sb1 = new StringBuilder()*/;
+            sb.append(" -> [" + itm.getName() + "] ");
+//            if (itm.getMetadata() != null) {
+//                itm.getMetadata().forEach((k, v) -> { if (sb1.length() > 0) sb1.append(", ");  sb1.append(String.format("%s : %s", k, v)); } );
+//            }
+//            sb.append(", metadata: {");
+//            sb.append(sb1);
+//            sb.append(" }");
+            BlobContainerItemProperties properties = itm.getProperties();
+            sb.append(String.format(", \"leaseState\": \"%s\"", properties.getLeaseState().toString()));
+            sb.append(String.format(", \"leaseStatus\": \"%s\"", properties.getLeaseStatus().toString()));
+            sb.append(String.format(", \"lastModified\": \"%s\"", properties.getLastModified()));
+            sb.append(String.format(", \"ETag\": \"%s\"", properties.getETag()));
+
+            System.out.println(sb.toString());
         }
     }
 

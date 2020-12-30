@@ -42,7 +42,7 @@ public class AzureBlobStorageController {
      * @return String
      */
     @PostMapping(value = "/{idContainer}/files/before-upload")
-    public String beforeUploadDocFile(@PathVariable String idContainer) {
+    public String beforeUpload(@PathVariable String idContainer) {
         return fileService.beforeUpload(idContainer);
     }
 
@@ -53,7 +53,7 @@ public class AzureBlobStorageController {
      * @param idFile file id
      */
     @PutMapping(value = "{idContainer}/files/{idFile}")
-    public void uploadDocFile(@PathVariable String idContainer, @PathVariable String idFile, @RequestBody @Validated DataBlock data) {
+    public void uploadFile(@PathVariable String idContainer, @PathVariable String idFile, @RequestBody @Validated DataBlock data) {
         fileService.uploadFile(idContainer, idFile, data);
     }
 
@@ -64,7 +64,7 @@ public class AzureBlobStorageController {
      * @param idFile file id
      */
     @PostMapping(value = "/{idContainer}/files/{idFile}")
-    public void completeUploadDocFile(@PathVariable String idContainer, @PathVariable String idFile, @RequestBody @Validated FilePrm data) {
+    public void completeUpload(@PathVariable String idContainer, @PathVariable String idFile, @RequestBody @Validated FilePrm data) {
         fileService.completeUploadFile(idContainer, idFile, data);
     }
 
@@ -75,7 +75,7 @@ public class AzureBlobStorageController {
      * @param idFile file id
      */
     @DeleteMapping(value = "{idContainer}/files/{idFile}")
-    public void deleteDocFile(@PathVariable String idContainer, @PathVariable String idFile) {
+    public void deleteFile(@PathVariable String idContainer, @PathVariable String idFile) {
         fileService.deleteFile(idContainer, idFile);
     }
 
@@ -86,7 +86,7 @@ public class AzureBlobStorageController {
      * @param idFile file id
      */
     @GetMapping(value = "/{idContainer}/files/{idFile}/link")
-    public String getLinkDocFile(@PathVariable String idContainer, @PathVariable String idFile) {
+    public String getLinkFile(@PathVariable String idContainer, @PathVariable String idFile) {
         return fileService.getLinkFile(idContainer, idFile);
     }
 
@@ -102,5 +102,15 @@ public class AzureBlobStorageController {
                     .stream()
                     .map(BlobItem::getName)
                     .collect(Collectors.toList());
+    }
+
+    /**
+     * Deleting a container from Azure Blob Storage
+     *
+     * @param idContainer document id
+     */
+    @DeleteMapping(value = "/{idContainer}")
+    public void deleteContainer(@PathVariable String idContainer) {
+        fileService.deleteContainer(idContainer);
     }
 }

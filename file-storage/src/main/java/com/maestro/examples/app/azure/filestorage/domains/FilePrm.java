@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * Dto class with information about file to complete upload to the storage
+ * Information about file to complete upload to the storage
  */
 @Data
 @Builder
@@ -19,7 +19,6 @@ public class FilePrm {
      * The file type
      */
     private String type;
-
     /**
      * Base64 block ids to complete upload
      */

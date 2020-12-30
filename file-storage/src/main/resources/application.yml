@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8810
   servlet:
     context-path: /api
 
@@ -13,6 +13,6 @@ spring:
 
 app:
   azure-account:
-    name: aksstnahuirisdev
-    key: vOH2yCO6ENzwveKet82418/iy0WQukRU1jGSRusoGMAyU3yfLE6ioOtxLkhnhbjjqr1X/lkgViM4pQiANOls8w==
+    name:
+    key:
   offsetHours: 24
