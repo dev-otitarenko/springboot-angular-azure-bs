@@ -1,7 +1,8 @@
 package com.maestro.examples.app.azure.filestorage.controllers;
 
-import com.azure.storage.blob.models.BlobContainerItem;
+import com.azure.storage.blob.models.BlobContainerItemProperties;
 import com.azure.storage.blob.models.BlobItem;
+import com.maestro.examples.app.azure.filestorage.domains.Container;
 import com.maestro.examples.app.azure.filestorage.domains.DataBlock;
 import com.maestro.examples.app.azure.filestorage.domains.FilePrm;
 import com.maestro.examples.app.azure.filestorage.services.AzureBlobStorageService;
@@ -28,10 +29,20 @@ public class AzureBlobStorageController {
      * @return List of blob's name
      */
     @GetMapping(value = "/")
-    public List<String> listContainers() {
+    public List<Container> listContainers() {
         return fileService.listContainers()
                 .stream()
-                .map(BlobContainerItem::getName)
+                .map(itm -> {
+                    BlobContainerItemProperties properties = itm.getProperties();
+                    return Container
+                                    .builder()
+                                        .name(itm.getName())
+                                        .leaseState(properties.getLeaseState().toString())
+                                        .leaseStatus(properties.getLeaseStatus().toString())
+                                        .lastModified(properties.getLastModified())
+                                        .etag(properties.getETag())
+                                    .build();
+                })
                 .collect(Collectors.toList());
     }
 
