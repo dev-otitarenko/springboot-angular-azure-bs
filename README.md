@@ -6,7 +6,7 @@ The frontend part is written on Angular v11
 
 # App configuration
 
-This paramateres should be set
+This paramateres should be configured in file-storage/src/main/resources/application.yml
 
 ``` yml
 app:
