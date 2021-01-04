@@ -6,7 +6,7 @@ The frontend part is written on Angular v11
 
 # App configuration
 
-This paramateres should be set
+This paramateres should be configured in file-storage/src/main/resources/application.yml
 
 ``` yml
 app:
@@ -15,6 +15,9 @@ app:
     key: <<your account pass>>
   offsetHours: 24
 ```
+<<your account name>> - Your account name for a specific blob storage
+<<your account pass>> - Your secret key for a specific blob storage
+
 # Running
 
 1. Run "file-storage" application
