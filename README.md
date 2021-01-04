@@ -15,6 +15,9 @@ app:
     key: <<your account pass>>
   offsetHours: 24
 ```
+<<your account name>> - Your account name for a specific blob storage
+<<your account pass>> - Your secret key for a specific blob storage
+
 # Running
 
 1. Run "file-storage" application
