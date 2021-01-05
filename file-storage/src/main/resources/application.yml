@@ -1,3 +1,4 @@
+# Application Conf
 server:
   port: 8810
   servlet:
@@ -10,9 +11,9 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
-
+# Azure BS conf
 app:
   azure-account:
     name:
     key:
-  offsetHours: 24
+  offsetHours:

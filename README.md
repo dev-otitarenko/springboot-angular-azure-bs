@@ -1,22 +1,25 @@
 # Description
 
-The sample shows the way to upload files to azure blob storage from the frontend.
-The backend part is written on Java (Spring Boot 2.4.1)
-The frontend part is written on Angular v11
+The simple viewer is presented. It allows to manage your personal azure blob storage and supports main operations using Azure Blob Storage RestAPI
+such as obtaining blob containers and their parts, uploading and viewing a blob content. Practically, UI allows uploading files of large size.
+
+The backend part: Java (Spring Boot 2.4.1)
+The frontend part: Angular v11, PrimeNG
 
 # App configuration
 
-This paramateres should be configured in file-storage/src/main/resources/application.yml
+Following parameters should be configured in file-storage/src/main/resources/application.yml
 
 ``` yml
 app:
   azure-account:
     name: <<your account name>>
     key: <<your account pass>>
-  offsetHours: 24
+  offsetHours: <<your offset hours>>
 ```
-<<your account name>> - Your account name for a specific blob storage
-<<your account pass>> - Your secret key for a specific blob storage
+<<your account name>> - Your account name (String) for a specific blob storage
+<<your account pass>> - Your secret key (String) for a specific blob storage
+<<your offset hours>> - Lifetime (Integer) of a link to a blob content
 
 # Running
 
