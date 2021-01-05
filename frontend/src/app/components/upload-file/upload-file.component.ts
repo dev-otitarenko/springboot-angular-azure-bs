@@ -17,16 +17,13 @@ export class UploadFileComponent implements OnInit {
   @Input() containerName: string;
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFailed: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('fileCmp', {static: false})
 
   visible: boolean;
 
   private _fileName: string;
-  @ViewChild('fileCmp', {static: false})
   private fileCmp: FileUpload;
-  /**
-   * 0 - before uploading, 1 - uploading, 2 - succeed, 3 - failed
-   */
-  private _status: number;
+  private _status: number; // 0 - before uploading, 1 - uploading, 2 - succeed, 3 - failed
   private _uploadProgress: number;
 
   constructor(private dataService: FilesService,
@@ -50,7 +47,7 @@ export class UploadFileComponent implements OnInit {
       const file: File = fileList[0];
       const fileType = file.type || 'application/octet-stream';
       this._fileName = file.name;
-      this._status = 1; // uploading
+      this._status = 1;
       this.containerName = `sample-${this.containerName}`;
 
       this.dataService.beforeUpload(this.containerName)
