@@ -17,11 +17,13 @@ app:
     key: <<your account pass>>
   offsetHours: <<your offset hours>>
 ```
+
 app.azure-account.name - Your account name (String) for a specific blob storage
 
 app.azure-account.key - Your secret key (String) for a specific blob storage
 
 app.offsetHours - Lifetime (Integer) of a link to a blob content
+
 
 # Running
 
